@@ -1,8 +1,15 @@
 <template>
   <div>
     <h1>Hello World</h1>
-    <button @click="isAdmin = true">ADMIN</button>
-    <button @click="isAdmin = false">USER</button>
+
+    <button @click="showUserView" :class="{ active: activeView === 'User' }">
+      User
+    </button>
+    <button @click="showAdminView" :class="{ active: activeView === 'Admin' }">
+      Admin
+    </button>
+
+    <component :is="activeView"></component>
     <admin-view v-if="isAdmin" @createProject="addProject" />
     <user-view v-else />
   </div>
@@ -13,23 +20,36 @@ import AdminView from "./components/AdminView.vue";
 import UserView from "./components/UserView.vue";
 
 export default {
-  name: "app",
   components: {
-    userView: UserView,
-    adminView: AdminView
+    User,
+    Admin,
   },
   data() {
     return {
-      isAdmin: true,
-      allProjects: []
+      activeView: "User",
     };
   },
   methods: {
-    addProject(project) {
-      this.allProjects.push(project);
-    }
-  }
+    showUserView() {
+      this.activeView = "User";
+    },
+    showAdminView() {
+      this.activeView = "Admin";
+    },
+  },
 };
 </script>
+<style>
+button {
+  padding: 10px 20px;
+  background-color: #ccc;
+  color: #fff;
+  border: none;
+  cursor: pointer;
+  transition: background-color 0.3s ease;
+}
 
-<style></style>
+button.active {
+  background-color: #333;
+}
+</style>

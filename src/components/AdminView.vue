@@ -13,7 +13,7 @@ export default {
     return {
       title: "",
       image: "",
-      description: ""
+      description: "",
     };
   },
   methods: {
@@ -21,10 +21,10 @@ export default {
       this.$emit("createProject", {
         title: this.title,
         image: this.image,
-        description: this.description
+        description: this.description,
       });
-    }
-  }
+    },
+  },
 };
 </script>
 
